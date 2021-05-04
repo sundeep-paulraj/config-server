@@ -31,3 +31,5 @@ management:
       enabled: true
     health:
       show-details: always
+      
+#management.endpoints.web.exposure.include=health,info,metrics,prometheus
