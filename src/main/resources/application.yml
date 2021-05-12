@@ -1,9 +1,5 @@
-server:
-  port: 8888
-#spring:
-#  profiles:
-#    active: native
-
+server.port: 8888
+logging.file: configserver.log
 spring.application.name: ConfigServer
 spring.profiles.active: default
 spring.cloud.config.server:
@@ -14,13 +10,20 @@ spring.cloud.config.server:
       - 'config'
       - 'config/*service/*'
       - 'config/*service/*/*'
+      - 'common,{application}'
     skipSslValidation: true
     force-pull: true
     default-label: main
-#   timeout: 180
-#  profiles:
-#    active: default
-
+    ignoreLocalSshSettings: true
+    strictHostKeyChecking: false
+    cloneOnStart: true
+    timeout: 60
+  health:
+    repositories:
+      ConfigServer:
+        label: master
+        name: 'ConfigServer'
+        profiles: default
 management:
   endpoints:
     web.exposure.include: '*'
@@ -28,8 +31,5 @@ management:
     restart:
       enabled: true
     shutdown:
-      enabled: true
-    health:
-      show-details: always
-      
-#management.endpoints.web.exposure.include=health,info,metrics,prometheus
+      enabled: false
+    health.show-details: always
