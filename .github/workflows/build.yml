@@ -9,9 +9,12 @@ on:
       - devel
       - main
   release:
-    types: [ created ]
+    types:
+      - created
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+      - devel
     types: [opened, synchronize, reopened]
 
 jobs:
